@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-abi19x-boutiqueadov1-4xu74ju8yrj.ws-eu118.gitpod.io'
+    '8000-abi19x-boutiqueadov1-fcgaz6cvry9.ws-eu118.gitpod.io'
 ]
 
 
@@ -86,6 +86,17 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
