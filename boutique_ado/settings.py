@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-abi19x-boutiqueadov1-upwlbk494um.ws-eu118.gitpod.io'
+    '8000-abi19x-boutiqueadov1-dessianb2ns.ws-eu118.gitpod.io'
 ]
 
 
@@ -40,14 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django.contrib.sites',
-
     'allauth',
     'allauth.account',
-
-    # Optional -- requires install using `django-allauth[socialaccount]`.
     'allauth.socialaccount',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +62,10 @@ ROOT_URLCONF = 'boutique_ado.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
