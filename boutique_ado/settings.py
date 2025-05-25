@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-      '8000-abi19x-boutiqueadov1-furxdjzv7zz.ws-eu119.gitpod.io' 
+      '8000-abi19x-boutiqueadov1-rxqj5u85dox.ws-eu119.gitpod.io' 
 ]
 
 
@@ -80,6 +80,9 @@ TEMPLATES = [
         },
     },
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
