@@ -30,7 +30,9 @@ SECRET_KEY = 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-        '8000-abi19x-boutiqueadov1-ny23yszeujo.ws-eu119.gitpod.io'
+        '8000-abi19x-boutiqueadov1-ny23yszeujo.ws-eu119.gitpod.io',
+        '127.0.0.1', # VS code preview
+        'localhost', # listen for stripe webhooks 
 ]
 
 
