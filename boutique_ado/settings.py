@@ -30,9 +30,9 @@ SECRET_KEY = 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-        '8000-abi19x-boutiqueadov1-ny23yszeujo.ws-eu119.gitpod.io',
-        '127.0.0.1', # VS code preview
-        'localhost', # listen for stripe webhooks 
+
+        '127.0.0.1', 
+        'localhost',
 ]
 
 
@@ -186,5 +186,5 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
+STRIPE_WH_SECRET = os.environ.get('whsec_0a87aa0c03811f9304b00ca97e54ce5320c40b26e8beaf1c55ee3f8625e573a7')
 
