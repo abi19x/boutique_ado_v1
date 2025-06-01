@@ -1,5 +1,11 @@
 from django.http import HttpResponse
 
+from .models import Order, OrderLineItem
+from products.models import Product
+
+import json
+import time
+
 
 class StripeWH_Handler:
     """Handle Stripe webhooks"""
@@ -34,9 +40,11 @@ class StripeWH_Handler:
                 shipping_details.address[field] = None
 
         order_exists = False
-        try:
-            order = Order.objects.get(
-                full_name__iexact=shipping_details.name,
+        attempt = 1
+        while attempt <= 5:
+            try:
+                order = Order.objects.get(
+                    full_name__iexact=shipping_details.name,
                     email__iexact=shipping_details.email,
                     phone_number__iexact=shipping_details.phone,
                     country__iexact=shipping_details.country,
@@ -45,13 +53,21 @@ class StripeWH_Handler:
                     street_address1__iexact=shipping_details.line1,
                     street_address2__iexact=shipping_details.line2,
                     county__iexact=shipping_details.state,
-                grand_total=grand_total,
-            )
-            order_exists = True
+                    grand_total=grand_total,
+                    original_bag=bag,
+                    stripe_pid=pid,
+                )
+                order_exists = True
+                break
+            except Order.DoesNotExist:
+                attempt += 1
+                time.sleep(1)
+        if order_exists:
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
-        except Order.DoesNotExist:
+        else:
+            order = None
             try:
                 order = Order.objects.create(
                     full_name=shipping_details.name,
@@ -64,6 +80,8 @@ class StripeWH_Handler:
                     street_address2=shipping_details.line2,
                     county=shipping_details.state,
                     grand_total=grand_total,
+                    original_bag=bag,
+                    stripe_pid=pid,
                 )
                 for item_id, item_data in json.loads(bag).items():
                     product = Product.objects.get(id=item_id)
@@ -89,9 +107,9 @@ class StripeWH_Handler:
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-    
+        
         return HttpResponse(
-            content=f'Webhook received: {event["type"]}',
+            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
     
     def handle_payment_intent_payment_failed(self, event):
