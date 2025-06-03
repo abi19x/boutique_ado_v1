@@ -37,6 +37,10 @@ body {
     padding-top: 150px;
 }
 
+h2 {
+    margin-top: 1rem; /* Add a class or ID to this section if not already */
+}
+
 .btn-black {
     background: black;
     color: white;
@@ -186,6 +190,8 @@ input[name='q']::placeholder {
     max-width: 80%;
   }
 }
+
+
 
 /* Allauth form formatting */
 
