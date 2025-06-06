@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 if os.path.isfile('env.py'):
     import env
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = [
 
         '127.0.0.1', 
         'localhost',
+        'boutique-ado-1-fa5fd954a97c.herokuapp.com/',  # Heroku application 
 ]
 
 
@@ -127,12 +129,18 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('postgresql://neondb_owner:npg_yxJ5bzhHRU1r@ep-ancient-truth-a2qb0i8u.eu-central-1.aws.neon.tech/broad_clear_lend_744663'))
     }
-}
+else: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 # Password validation
@@ -190,3 +198,4 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
