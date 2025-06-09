@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+import stripe
 
 if os.path.isfile('env.py'):
     import env
@@ -28,8 +29,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!'
+# Use the environment variable if available, otherwise fall back to a default (for dev)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-a)rumc*m1la%lmbioa*h2@=isp4@m2v7x_m3a5=81dkwv+a@z!')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,8 +41,6 @@ ALLOWED_HOSTS = [
     'localhost',
     'boutique-ado-1-fa5fd954a97c.herokuapp.com',
 ]
-
-
 
 # Application definition
 
@@ -147,8 +147,6 @@ else:
         }
     }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -204,4 +202,4 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+stripe.api_key = STRIPE_SECRET_KEY
